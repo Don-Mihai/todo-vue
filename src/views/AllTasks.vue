@@ -48,6 +48,9 @@ const save = () => {
   align-items: center;
   width: 100%;
 }
+.task {
+  color: #000;
+}
 .tasks-action {
   height: 100%;
   width: 100%;
