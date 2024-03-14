@@ -4,6 +4,7 @@ import Home from "../components/HelloWorld.vue";
 
 const tasks = ref([]);
 const inputValue = ref("");
+const currentTask = ref({});
 
 const save = () => {
   tasks.value.push({ title: inputValue.value });
@@ -28,7 +29,7 @@ const save = () => {
       <div class="tasks-action">
         <div class="tasks">
           <h2 class="tasks-title">Задачи</h2>
-          <div @click="" class="task" v-for="task in tasks">
+          <div @click="currentTask = task" class="task" v-for="task in tasks">
             <input type="checkbox" class="task-checkbox" />{{ task.title }}
           </div>
         </div>
@@ -41,8 +42,9 @@ const save = () => {
         />
       </div>
     </div>
-    <aside class="aside">
-      <input type="text" />
+    <aside v-if="Boolean(currentTask.title)" class="aside">
+      <button @click="currentTask = {}">x</button>
+      <input v-model="currentTask.title" type="text" />
     </aside>
   </div>
 </template>
@@ -60,6 +62,7 @@ const save = () => {
   height: 100%;
 }
 .aside {
+  height: 100%;
   width: 300px;
 }
 .task {
