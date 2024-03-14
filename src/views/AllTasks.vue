@@ -14,39 +14,53 @@ const save = () => {
 
 <template>
   <div class="wraper-tasks">
-    <div class="tasks-banner">
-      <div class="tasks-banner__day">
-        <h2 class="title">Мой день</h2>
-        <div class="day">воскресенье, 10 февраля</div>
-      </div>
-      <div class="tasks-banner__buttons">
-        <button></button>
-        <button></button>
-      </div>
-    </div>
-    <div class="tasks-action">
-      <div class="tasks">
-        <h2 class="tasks-title">Задачи</h2>
-        <div class="task" v-for="task in tasks">
-          <input type="checkbox" class="task-checkbox" />{{ task.title }}
+    <div class="main-tasks">
+      <div class="tasks-banner">
+        <div class="tasks-banner__day">
+          <h2 class="title">Мой день</h2>
+          <div class="day">воскресенье, 10 февраля</div>
+        </div>
+        <div class="tasks-banner__buttons">
+          <button></button>
+          <button></button>
         </div>
       </div>
-      <input
-        class="task-input"
-        v-model="inputValue"
-        @keydown.enter="save"
-        type="text"
-        placeholder="Введите задачу"
-      />
+      <div class="tasks-action">
+        <div class="tasks">
+          <h2 class="tasks-title">Задачи</h2>
+          <div @click="" class="task" v-for="task in tasks">
+            <input type="checkbox" class="task-checkbox" />{{ task.title }}
+          </div>
+        </div>
+        <input
+          class="task-input"
+          v-model="inputValue"
+          @keydown.enter="save"
+          type="text"
+          placeholder="Введите задачу"
+        />
+      </div>
     </div>
+    <aside class="aside">
+      <input type="text" />
+    </aside>
   </div>
 </template>
 <style scoped>
 .wraper-tasks {
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 100%;
+}
+
+.main-tasks {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.aside {
+  width: 300px;
 }
 .task {
   color: #000;
