@@ -1,23 +1,19 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
+import Header from './nav/Header.vue';
+import Home from './components/HelloWorld.vue';
 </script>
 
 <template>
-  <div class="wrap">
-    <nav>
-        <RouterLink to="/">Все задачи</RouterLink>
-        <RouterLink to="/new">Запланированные</RouterLink>
-        <RouterLink to="/complete">Завершенные</RouterLink>
-      </nav>
-      <RouterView />
-  </div>
- 
+    <div class="wrap">
+        <Header></Header>
+        <RouterView />
+    </div>
 </template>
 
 <style scoped>
 .wrap {
-  display: flex;
-  /* height: 100vh; */
+    display: flex;
+    /* height: 100vh; */
 }
-
 </style>
