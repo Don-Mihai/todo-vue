@@ -9,10 +9,7 @@
         class="checkpoint"
         :class="{ active: checkpoint.active }"
         :style="{
-          left: `${
-            index *
-            (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))
-          }%`,
+          left: `${index * (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))}%`,
         }"
         @click.stop="toggleCheckpoint(index)"
         @mouseenter="showTooltip(index)"
@@ -28,10 +25,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from "vue";
-import { gsap } from "gsap";
-import { reactive as reactiveMobx } from "@vue/reactivity";
-import { store as mobxStore } from "../mobx/store";
+import { ref, reactive, computed } from 'vue';
+import { gsap } from 'gsap';
+import { reactive as reactiveMobx } from '@vue/reactivity';
+import { store as mobxStore } from '../mobx/store';
 
 const store = reactiveMobx(mobxStore);
 
@@ -52,12 +49,10 @@ const toggleCheckpoint = (index) => {
   });
 
   // GSAP animation for filling the progress bar
-  gsap.to(".progress-bar-fill", {
-    width: `${
-      index * (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))
-    }%`,
+  gsap.to('.progress-bar-fill', {
+    width: `${index * (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))}%`,
     duration: 0.5,
-    ease: "power1.out",
+    ease: 'power1.out',
   });
 };
 

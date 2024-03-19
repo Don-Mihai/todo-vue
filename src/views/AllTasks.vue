@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from "vue";
-import { reactive } from "@vue/reactivity";
-import { store as mobxStore } from "../mobx/store";
+import { ref } from 'vue';
+import { reactive } from '@vue/reactivity';
+import { store as mobxStore } from '../mobx/store';
 
 const store = reactive(mobxStore);
 
-const inputValue = ref("");
+const inputValue = ref('');
 const currentTask = ref({});
 
 const save = () => {
   store.addTask({ title: inputValue.value, status: false });
 
-  inputValue.value = "";
+  inputValue.value = '';
 };
 </script>
 
@@ -27,27 +27,11 @@ const save = () => {
       <div class="tasks-action">
         <div class="tasks">
           <h2 class="tasks-title">Задачи</h2>
-          <div
-            @click="currentTask = task"
-            class="task"
-            v-for="task in store.tasks"
-            :class="{ 'task-checkbox--checked': task.status }"
-          >
-            <input
-              type="checkbox"
-              class="task-checkbox"
-              :checked="task.status"
-              @change="store.changeStatus(task)"
-            />{{ task.title }}
+          <div @click="currentTask = task" class="task" v-for="task in store.tasks" :class="{ 'task-checkbox--checked': task.status }">
+            <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />{{ task.title }}
           </div>
         </div>
-        <input
-          class="task-input"
-          v-model="inputValue"
-          @keydown.enter="save"
-          type="text"
-          placeholder="Введите задачу"
-        />
+        <input class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />
       </div>
     </div>
     <aside v-if="Boolean(currentTask.title)" class="aside">
@@ -102,7 +86,7 @@ const save = () => {
 .tasks-banner {
   height: 200px;
   width: 100%;
-  background-image: url("/src/assets/banner.png");
+  background-image: url('/src/assets/banner.png');
   background-repeat: no-repeat;
   background-position: center;
 }
