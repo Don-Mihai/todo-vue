@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from "vue";
-import Home from "../components/HelloWorld.vue";
+import { reactive } from "@vue/reactivity";
+import { store as mobxStore } from "../mobx/store";
 
-const tasks = ref([]);
+const store = reactive(mobxStore);
+
 const inputValue = ref("");
 const currentTask = ref({});
 
 const save = () => {
-  tasks.value.push({ title: inputValue.value });
+  store.addTask({ title: inputValue.value, status: false });
 
   inputValue.value = "";
 };
@@ -21,16 +23,22 @@ const save = () => {
           <h2 class="title">Мой день</h2>
           <div class="day">воскресенье, 10 февраля</div>
         </div>
-        <div class="tasks-banner__buttons">
-          <button></button>
-          <button></button>
-        </div>
       </div>
       <div class="tasks-action">
         <div class="tasks">
           <h2 class="tasks-title">Задачи</h2>
-          <div @click="currentTask = task" class="task" v-for="task in tasks">
-            <input type="checkbox" class="task-checkbox" />{{ task.title }}
+          <div
+            @click="currentTask = task"
+            class="task"
+            v-for="task in store.tasks"
+            :class="{ 'task-checkbox--checked': task.status }"
+          >
+            <input
+              type="checkbox"
+              class="task-checkbox"
+              :checked="task.status"
+              @change="store.changeStatus(task)"
+            />{{ task.title }}
           </div>
         </div>
         <input
@@ -101,6 +109,11 @@ const save = () => {
 .task-checkbox {
   margin-right: 10px;
 }
+
+.task-checkbox--checked {
+  text-decoration: line-through;
+}
+
 .tasks-banner {
   display: flex;
   align-items: end;

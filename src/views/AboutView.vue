@@ -1,5 +1,6 @@
 <template>
   <div class="progress-container">
+    {{ store.count }}
     <div class="progress-bar-background">
       <div class="progress-bar-fill" :style="{ width: 0 + '%' }"></div>
       <div
@@ -29,6 +30,10 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { gsap } from "gsap";
+import { reactive as reactiveMobx } from "@vue/reactivity";
+import { store as mobxStore } from "../mobx/store";
+
+const store = reactiveMobx(mobxStore);
 
 const checkpoints = reactive([]);
 const tooltipIndex = ref(-1);
