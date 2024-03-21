@@ -1,8 +1,16 @@
 <script setup>
 import { ref } from 'vue';
 import Tasks from '../components/Tasks.vue';
+import { store as mobxStore } from '../mobx/store';
+import { reactive } from '@vue/reactivity';
+
+const store = reactive(mobxStore);
 
 const currentTask = ref({});
+
+const onTaskClick = (task) => {
+  currentTask.value = task;
+};
 </script>
 
 <template>
@@ -14,7 +22,7 @@ const currentTask = ref({});
           <div class="day">воскресенье, 10 февраля</div>
         </div>
       </div>
-      <Tasks title="Задачи" :currentTask="currentTask" />
+      <Tasks :onTaskClick="onTaskClick" title="Задачи" :tasks="store.tasks" />
     </div>
     <aside v-if="Boolean(currentTask.title)" class="aside">
       <button @click="currentTask = {}">x</button>

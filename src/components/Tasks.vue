@@ -2,7 +2,7 @@
   <div class="tasks-action">
     <div class="tasks">
       <h2 class="tasks-title">{{ title }}</h2>
-      <div @click="currentTask = task" class="task" v-for="task in store.tasks" :class="{ 'task-checkbox--checked': task.status }">
+      <div @click="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ 'task-checkbox--checked': task.status }">
         <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />{{ task.title }}
       </div>
     </div>
@@ -15,8 +15,9 @@ import { store as mobxStore } from '../mobx/store';
 import { reactive } from '@vue/reactivity';
 
 const props = defineProps({
-  currentTask: Object,
   title: String,
+  onTaskClick: Function,
+  tasks: Array,
 });
 
 const store = reactive(mobxStore);
