@@ -6,7 +6,7 @@
         <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />{{ task.title }}
       </div>
     </div>
-    <input class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />
+    <input v-if="!hideInput" class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />
   </div>
 </template>
 <script setup>
@@ -18,6 +18,7 @@ const props = defineProps({
   title: String,
   onTaskClick: Function,
   tasks: Array,
+  hideInput: Boolean,
 });
 
 const store = reactive(mobxStore);
