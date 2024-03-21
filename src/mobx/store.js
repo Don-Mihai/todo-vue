@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx';
 class Store {
   tasks = [];
   tasksComplete = [];
+  tasksUncomplete = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -23,7 +24,7 @@ class Store {
 
   changeStatus(task) {
     const taskIndex = this.tasks.findIndex((t) => t === task);
-    this.tasks[taskIndex] = { ...task, status: !task.status };
+    this.tasks[taskIndex].status = !this.tasks[taskIndex].status;
   }
 }
 

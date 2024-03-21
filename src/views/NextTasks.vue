@@ -1,11 +1,11 @@
-<template>
-    <h2>Next</h2>
-</template>
+<script setup>
+import { store as mobxStore } from '../mobx/store';
+import { reactive } from '@vue/reactivity';
+import LayoutTasks from '../components/LayoutTasks.vue';
 
-<style scoped>
-h2 {
-    width: 100%;
-    text-align: center;
-    padding: 2rem;
-}
-</style>
+const store = reactive(mobxStore);
+</script>
+
+<template>
+  <LayoutTasks title="Запланированные" :tasks="store.tasks?.filter((item) => !item.status)" />
+</template>
