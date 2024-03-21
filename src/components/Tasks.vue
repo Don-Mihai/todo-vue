@@ -2,8 +2,9 @@
   <div class="tasks-action">
     <div class="tasks">
       <h2 class="tasks-title">{{ title }}</h2>
-      <div @click="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ 'task-checkbox--checked': task.status }">
-        <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />{{ task.title }}
+      <div @click.self="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ 'task-checkbox--checked': task.status }">
+        <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />
+        {{ task.title }}
       </div>
     </div>
     <input v-if="!hideInput" class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />

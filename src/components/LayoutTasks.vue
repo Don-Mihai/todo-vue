@@ -29,6 +29,7 @@ const props = defineProps({
     <aside v-if="Boolean(currentTask.title)" class="aside">
       <button @click="currentTask = {}">x</button>
       <input v-model="currentTask.title" type="text" />
+      <button @click="store.removeTask(currentTask)">Удалить</button>
     </aside>
   </div>
 </template>
