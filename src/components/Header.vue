@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
@@ -9,9 +9,10 @@ import { RouterLink, RouterView } from "vue-router";
       <div class="profile__name">My Profile</div>
     </div>
     <nav class="nav">
-      <RouterLink to="/all" class="nav-li">Все задачи</RouterLink>
-      <RouterLink to="/about" class="nav-li">Запланированные</RouterLink>
-      <RouterLink to="/ready" class="nav-li">Завершенные</RouterLink>
+      <RouterLink to="/" class="nav-li">Все задачи</RouterLink>
+      <RouterLink to="/uncomplete" class="nav-li">Запланированные</RouterLink>
+      <RouterLink to="/complete" class="nav-li">Завершенные</RouterLink>
+      <RouterLink to="/progress" class="nav-li">Прогресс</RouterLink>
     </nav>
   </div>
 </template>

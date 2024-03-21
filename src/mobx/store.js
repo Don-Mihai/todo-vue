@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 
 class Store {
   tasks = [];
@@ -24,7 +24,6 @@ class Store {
   changeStatus(task) {
     const taskIndex = this.tasks.findIndex((t) => t === task);
     this.tasks[taskIndex] = { ...task, status: !task.status };
-    console.log(this.tasks);
   }
 }
 

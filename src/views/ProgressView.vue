@@ -4,53 +4,44 @@
     <div class="progress-bar-background">
       <div class="progress-bar-fill" :style="{ width: 0 + '%' }"></div>
       <div
-        v-for="(checkpoint, index) in checkpoints"
+        v-for="(checkpoint, index) in store.tasks"
         :key="index"
         class="checkpoint"
-        :class="{ active: checkpoint.active }"
+        :class="{ active: checkpoint.status }"
         :style="{
-          left: `${index * (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))}%`,
+          left: `${index * (100 / (store.tasks.length > 1 ? store.tasks.length - 1 : 1))}%`,
         }"
         @click.stop="toggleCheckpoint(index)"
         @mouseenter="showTooltip(index)"
         @mouseleave="hideTooltip"
       >
         <div v-if="tooltipIndex === index" class="tooltip">
-          {{ checkpoint.description }}
+          {{ checkpoint.title }}
         </div>
       </div>
     </div>
-    <button @click="addNewCheckpoint">Добавить точку</button>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref } from 'vue';
 import { gsap } from 'gsap';
 import { reactive as reactiveMobx } from '@vue/reactivity';
 import { store as mobxStore } from '../mobx/store';
 
 const store = reactiveMobx(mobxStore);
 
-const checkpoints = reactive([]);
 const tooltipIndex = ref(-1);
 
-const addNewCheckpoint = () => {
-  checkpoints.push({
-    active: false,
-    description: `Задача ${checkpoints.length + 1}`,
-  });
-};
-
 const toggleCheckpoint = (index) => {
-  checkpoints[index].active = !checkpoints[index].active;
-  checkpoints.forEach((checkpoint, i) => {
-    checkpoint.active = i <= index;
+  store.tasks[index].status = !store.tasks[index].status;
+  store.tasks.forEach((checkpoint, i) => {
+    checkpoint.status = i <= index;
   });
 
   // GSAP animation for filling the progress bar
   gsap.to('.progress-bar-fill', {
-    width: `${index * (100 / (checkpoints.length > 1 ? checkpoints.length - 1 : 1))}%`,
+    width: `${index * (100 / (store.tasks.length > 1 ? store.tasks.length - 1 : 1))}%`,
     duration: 0.5,
     ease: 'power1.out',
   });

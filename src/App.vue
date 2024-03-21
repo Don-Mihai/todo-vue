@@ -1,19 +1,18 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import Header from './nav/Header.vue';
-import Home from './components/HelloWorld.vue';
+import Header from './components/Header.vue';
 </script>
 
 <template>
-    <div class="wrap">
-        <Header></Header>
-        <RouterView />
-    </div>
+  <div class="wrap">
+    <Header></Header>
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
 .wrap {
-    display: flex;
-    /* height: 100vh; */
+  display: flex;
+  /* height: 100vh; */
 }
 </style>

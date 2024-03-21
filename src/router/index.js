@@ -1,37 +1,27 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import AllTasks from "../views/AllTasks.vue";
-import NextTasks from "../views/NextTasks.vue";
-import ReadyTasks from "../views/ReadyTasks.vue";
-import AboutView from "../views/AboutView.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import AllTasks from '../views/AllTasks.vue';
+import NextTasks from '../views/NextTasks.vue';
+import ReadyTasks from '../views/ReadyTasks.vue';
+import ProgressView from '../views/ProgressView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: HomeView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: AboutView,
-    },
-    {
-      path: "/all",
-      name: "alltasks",
+      path: '/',
       component: AllTasks,
     },
     {
-      path: "/next",
-      name: "nexttasks",
+      path: '/uncomplete',
       component: NextTasks,
     },
     {
-      path: "/ready",
-      name: "readytasks",
+      path: '/complete',
       component: ReadyTasks,
+    },
+    {
+      path: '/progress',
+      component: ProgressView,
     },
   ],
 });
