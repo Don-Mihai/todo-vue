@@ -21,7 +21,7 @@ const props = defineProps({
       <div class="tasks-banner">
         <div class="tasks-banner__day">
           <h2 class="title">Мой день</h2>
-          <div class="day">воскресенье, 10 февраля</div>
+          <div class="day">воскресенье, 11 февраля</div>
         </div>
       </div>
       <Tasks :hideInput="hideInput" :onTaskClick="onTaskClick" :title="title" :tasks="tasks" />
