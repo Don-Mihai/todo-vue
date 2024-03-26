@@ -16,8 +16,9 @@ class Store {
     this.tasks = tasks;
   }
 
-  addTask(task) {
-    this.tasks.push(task);
+  async addTask(task) {
+    const taskRes = (await axios.post('https://65f2c67a105614e6549ec665.mockapi.io/tasks', task)).data;
+    this.tasks.push(taskRes);
   }
 
   removeTask(task) {
