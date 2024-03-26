@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { makeAutoObservable } from 'mobx';
 
 class Store {
@@ -7,6 +8,12 @@ class Store {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  async getTasks() {
+    const tasks = (await axios.get('https://65f2c67a105614e6549ec665.mockapi.io/tasks')).data;
+
+    this.tasks = tasks;
   }
 
   addTask(task) {

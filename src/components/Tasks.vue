@@ -11,7 +11,7 @@
   </div>
 </template>
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 import { store as mobxStore } from '../mobx/store';
 import { reactive } from '@vue/reactivity';
 
@@ -23,7 +23,7 @@ const props = defineProps({
 });
 
 const store = reactive(mobxStore);
-const inputValue = ref('');
+const inputValue = ref();
 
 const save = () => {
   store.addTask({ title: inputValue.value, status: false });
