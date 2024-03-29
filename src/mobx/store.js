@@ -60,7 +60,7 @@ class Store {
       });
 
       // Получаем предсказанную категорию
-      const predictedCategory = completion.data.choices[0].message?.content;
+      const predictedCategory = completion.choices[0].message?.content;
 
       console.log(predictedCategory);
 
