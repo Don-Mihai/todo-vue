@@ -8,11 +8,11 @@ const props = defineProps({
 });
 
 const saveTask = () => {
-  const fetchTask = store.tasks.find((task) => task.id === currentTask.id);
-  if (currentTask.category !== fetchTask.category) {
-    store.categorizeTask(currentTask);
+  const fetchTask = store.tasks.find((task) => task.id === props.currentTask.id);
+  if (props.currentTask.category !== fetchTask.category) {
+    store.categorizeTask(props.currentTask);
   } else {
-    store.saveTask(currentTask);
+    store.saveTask(props.currentTask);
   }
 };
 </script>
