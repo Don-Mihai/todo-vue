@@ -9,7 +9,7 @@ const props = defineProps({
 
 const saveTask = () => {
   const fetchTask = store.tasks.find((task) => task.id === props.currentTask.id);
-  if (props.currentTask.category !== fetchTask.category) {
+  if (props.currentTask.description !== fetchTask.description) {
     store.categorizeTask(props.currentTask);
   } else {
     store.updateTask(props.currentTask);
