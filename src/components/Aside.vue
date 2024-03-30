@@ -12,7 +12,7 @@ const saveTask = () => {
   if (props.currentTask.category !== fetchTask.category) {
     store.categorizeTask(props.currentTask);
   } else {
-    store.saveTask(props.currentTask);
+    store.updateTask(props.currentTask);
   }
 };
 </script>
