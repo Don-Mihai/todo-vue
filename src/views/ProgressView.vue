@@ -1,15 +1,15 @@
 <template>
   <div class="progress-container">
-    {{ store.count }}
-    <div class="progress-bar-background">
+    <div class="task-progress" v-for="(task, i) in tasksWithSubtasks" :key="i">
+      <div class="task-name">{{ task.title }}</div>
       <div class="progress-bar-fill" :style="{ width: 0 + '%' }"></div>
       <div
-        v-for="(checkpoint, index) in store.tasks"
+        v-for="(checkpoint, index) in task.subtasks"
         :key="index"
         class="checkpoint"
         :class="{ active: checkpoint.status }"
         :style="{
-          left: `${index * (100 / (store.tasks.length > 1 ? store.tasks.length - 1 : 1))}%`,
+          left: `${index * (100 / (task.subtasks.length > 1 ? task.subtasks.length - 1 : 1))}%`,
         }"
         @click.stop="toggleCheckpoint(index)"
         @mouseenter="showTooltip(index)"
@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { gsap } from 'gsap';
 import { reactive as reactiveMobx } from '@vue/reactivity';
 import { store as mobxStore } from '../mobx/store';
@@ -32,6 +32,10 @@ import { store as mobxStore } from '../mobx/store';
 const store = reactiveMobx(mobxStore);
 
 const tooltipIndex = ref(-1);
+
+const tasksWithSubtasks = computed(() => {
+  return store.tasks.filter((task) => task.subtasks && task.subtasks.length > 0);
+});
 
 const toggleCheckpoint = (index) => {
   store.tasks[index].status = !store.tasks[index].status;
@@ -60,8 +64,14 @@ const hideTooltip = () => {
 .progress-container {
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  /* align-items: center; */
   gap: 10px;
+}
+
+.task-progress {
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .progress-bar-background {
