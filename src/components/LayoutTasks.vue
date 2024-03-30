@@ -4,7 +4,7 @@ import Tasks from './Tasks.vue';
 import Aside from './Aside.vue';
 const currentTask = ref({});
 const onTaskClick = (task) => {
-  currentTask.value = task;
+  currentTask.value = { ...task };
 };
 const props = defineProps({
   title: String,
