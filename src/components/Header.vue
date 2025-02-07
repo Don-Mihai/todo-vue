@@ -12,7 +12,6 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/" class="nav-li">Все задачи</RouterLink>
       <RouterLink to="/uncomplete" class="nav-li">Запланированные</RouterLink>
       <RouterLink to="/complete" class="nav-li">Завершенные</RouterLink>
-      <RouterLink to="/progress" class="nav-li">Прогресс</RouterLink>
     </nav>
   </div>
 </template>
@@ -38,6 +37,11 @@ import { RouterLink, RouterView } from 'vue-router';
 .profile__logo {
   width: 60px;
   height: 60px;
+  transition: all 0.15s;
+}
+
+.profile__logo:active {
+  transform: scale(0.9);
 }
 .profile__name {
   color: #000;
@@ -53,6 +57,7 @@ import { RouterLink, RouterView } from 'vue-router';
 }
 .nav-li:hover {
   background-color: #1d1b1b24;
+  transform: scale(1.03);
 }
 .router-link-active {
   background-color: #1d1b1b24;

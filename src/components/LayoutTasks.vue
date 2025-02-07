@@ -22,9 +22,9 @@ const props = defineProps({
           <div class="day">воскресенье, 11 февраля</div>
         </div>
       </div>
-      <Tasks :hideInput="hideInput" :onTaskClick="onTaskClick" :title="title" :tasks="tasks" />
+      <Tasks :hideInput :onTaskClick :title :tasks />
     </div>
-    <Aside :currentTask="currentTask"></Aside>
+    <Aside :currentTask></Aside>
   </div>
 </template>
 
@@ -41,20 +41,22 @@ const props = defineProps({
   }
 
   .tasks-banner {
-    height: 200px;
+    height: 100px;
     width: 100%;
     background-image: url('/src/assets/banner.png');
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
-    align-items: end;
-    padding: 50px;
+    align-items: center;
     justify-content: space-between;
+    transition: all 0.3s ease-in-out;
 
     &__day {
-      .title {
-        margin-bottom: 0;
-      }
+      margin-left: 20px;
+    }
+
+    &:hover {
+      height: 150px;
     }
   }
 }

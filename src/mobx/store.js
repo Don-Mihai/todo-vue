@@ -2,9 +2,9 @@ import axios from 'axios';
 import { makeAutoObservable } from 'mobx';
 import OpenAI from 'openai'; // Предполагаем, что у вас уже установлена библиотека OpenAI
 
-const openaiKey = import.meta.env.VITE_OPENAI_KEY;
+// const openaiKey = import.meta.env.VITE_OPENAI_KEY;
 
-const openai = new OpenAI({ apiKey: openaiKey, dangerouslyAllowBrowser: true });
+const openai = new OpenAI({ apiKey: 'openaiKey', dangerouslyAllowBrowser: true });
 
 class Store {
   tasks = [];

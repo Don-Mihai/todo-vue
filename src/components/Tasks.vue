@@ -2,8 +2,8 @@
   <div class="tasks-action">
     <div class="tasks">
       <h2 class="tasks-title">{{ title }}</h2>
-      <div @click.self="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ 'task-checkbox--checked': task.status }">
-        <input type="checkbox" class="task-checkbox" :checked="task.status" @change="store.changeStatus(task)" />
+      <div @click.self="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ isChecked: task.status }">
+        <input type="checkbox" class="task-checkbox" :checked="task.status" @change="task.status = !task.status" />
         {{ task.title }}
       </div>
     </div>
@@ -11,22 +11,23 @@
   </div>
 </template>
 <script setup>
-import { ref, defineProps, onMounted, onUpdated } from 'vue';
-import { store as mobxStore } from '../mobx/store';
+import { ref, defineProps } from 'vue';
+import { useTasksStore } from '../pinia/TasksStore';
 import { reactive } from '@vue/reactivity';
 
 const props = defineProps({
   title: String,
   onTaskClick: Function,
-  tasks: Array,
   hideInput: Boolean,
 });
 
-const store = reactive(mobxStore);
+const tasksStore = useTasksStore();
+console.log(tasksStore.tasks);
 const inputValue = ref();
+const tasks = ref([]);
 
 const save = async () => {
-  await store.addTask({ title: inputValue.value, status: false });
+  tasks.value.push({ title: inputValue.value, status: false });
 
   inputValue.value = '';
 };
@@ -34,8 +35,24 @@ const save = async () => {
 
 <style scoped>
 .task {
+  margin-bottom: 10px;
+  padding: 10px;
   color: #000;
+  background-color: rgba(0, 0, 0, 0.1);
+  animation: addTask 0.5s ease-in-out;
 }
+
+@keyframes addTask {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .tasks-action {
   height: 100%;
   width: 100%;
@@ -46,6 +63,7 @@ const save = async () => {
   padding-bottom: 30px;
 }
 .tasks {
+  height: 100%;
   width: 100%;
   padding: 20px;
   overflow: auto;
@@ -64,7 +82,7 @@ const save = async () => {
   margin-right: 10px;
 }
 
-.task-checkbox--checked {
+.isChecked {
   text-decoration: line-through;
 }
 </style>
