@@ -1,7 +1,4 @@
 <script setup>
-import { store as mobxStore } from '../mobx/store';
-import { reactive } from '@vue/reactivity';
-const store = reactive(mobxStore);
 
 const props = defineProps({
   currentTask: Object,

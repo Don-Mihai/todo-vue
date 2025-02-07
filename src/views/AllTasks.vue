@@ -1,16 +1,33 @@
 <script setup>
-import { store as mobxStore } from '../mobx/store';
-import { reactive } from '@vue/reactivity';
-import LayoutTasks from '../components/LayoutTasks.vue';
-import { onMounted } from 'vue';
+import Banner from '@/components/Banner.vue';
+import Tasks from '@/components/Tasks.vue';
+import Aside from '@/components/Aside.vue';
+import { ref } from 'vue';
 
-const store = reactive(mobxStore);
-
-onMounted(() => {
-  store.getTasks();
-});
+const tasks = ref([]);
+const currentTask = ref({});
 </script>
 
 <template>
-  <LayoutTasks title="Задачи" :tasks="store.tasks" />
+  <div class="wrapper-tasks">
+    <div class="main-tasks">
+      <Banner />
+      <Tasks :onTaskClick :title="Задачи" :tasks />
+    </div>
+    <Aside :currentTask></Aside>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.wrapper-tasks {
+  display: flex;
+  width: 100%;
+
+  .main-tasks {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

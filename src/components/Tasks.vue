@@ -13,21 +13,19 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 import { useTasksStore } from '../pinia/TasksStore';
-import { reactive } from '@vue/reactivity';
 
 const props = defineProps({
+  tasks: Array,
   title: String,
   onTaskClick: Function,
   hideInput: Boolean,
 });
 
 const tasksStore = useTasksStore();
-console.log(tasksStore.tasks);
 const inputValue = ref();
-const tasks = ref([]);
 
 const save = async () => {
-  tasks.value.push({ title: inputValue.value, status: false });
+  props.tasks.push({ title: inputValue.value, status: false });
 
   inputValue.value = '';
 };
