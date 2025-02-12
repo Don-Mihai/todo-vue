@@ -1,36 +1,25 @@
 <script setup>
-
+import { useTasksStore } from '@/pinia/TasksStore';
 const props = defineProps({
   currentTask: Object,
 });
 
-const saveTask = () => {
-  const fetchTask = store.tasks.find((task) => task.id === props.currentTask.id);
-  if (props.currentTask.description !== fetchTask.description) {
-    store.categorizeTask(props.currentTask);
-  } else {
-    store.updateTask(props.currentTask);
-  }
-};
+const { deleteTask } = useTasksStore();
+
+const saveTask = () => {};
 </script>
 
 <template>
   <div class="aside" v-if="currentTask.id">
-    <button class="icon close-button" @click="currentTask = {}">x</button>
+    <button class="icon close-button" @click="$emit('closeTask')">x</button>
     <input type="text" v-model="currentTask.title" placeholder="Название задачи" class="input-field" />
-
-    <div class="subtasks" v-for="(subtask, index) in currentTask.subtasks" :key="index">
-      <input type="text" v-model="subtask.name" placeholder="Subtask title" class="input-field subtask-input" />
-      <button @click="store.removeSubtask(currentTask)" class="icon subtask-remove">x</button>
-    </div>
-    <button @click="store.addSubtask(currentTask)" class="button add-subtask">Add Subtask</button>
 
     <textarea v-model="currentTask.description" placeholder="Описание задачи" class="textarea-field"></textarea>
     <input type="text" v-model="currentTask.category" placeholder="Категория" class="input-field" />
     <v-select v-model="currentTask.priority" :items="['Низкий', 'Средний', 'Высокий']" label="Приоритет" />
     <div class="aside__footer">
       <button @click="saveTask" class="button">Сохранить</button>
-      <button @click="store.removeTask(currentTask)" class="button">Удалить</button>
+      <button @click="deleteTask(currentTask.id)" class="button">Удалить</button>
     </div>
   </div>
 </template>
@@ -83,39 +72,6 @@ const saveTask = () => {
       cursor: pointer;
       margin-left: 8px;
     }
-  }
-}
-.subtasks {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .subtask-input {
-    flex-grow: 1;
-    margin-right: 8px;
-    margin-bottom: 4px;
-  }
-
-  .subtask-remove {
-    font-size: 18px;
-    color: #777;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-}
-
-.add-subtask {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 8px;
-  &:hover {
-    background-color: #45a049;
   }
 }
 </style>

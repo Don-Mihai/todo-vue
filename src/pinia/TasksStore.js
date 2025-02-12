@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 export const useTasksStore = defineStore('tasks', {
-  state: () => ({ tasks: [{ title: 'test', completed: false }] }),
+  state: () => ({ tasks: [{ id: 1, title: 'test', status: false }] }),
   getters: {
     doubleCount: (state) => state.count * 2,
   },
@@ -9,8 +9,14 @@ export const useTasksStore = defineStore('tasks', {
       this.tasks.push({
         id: this.tasks.length + 1,
         title,
-        completed: false,
+        status: false,
       });
+    },
+    deleteTask(id) {
+      console.log(id);
+      this.tasks = this.tasks.filter((task) => task.id !== id);
+
+      console.log(this.tasks);
     },
   },
 });

@@ -7,19 +7,15 @@ import { useTasksStore } from '@/pinia/TasksStore';
 
 const { tasks } = useTasksStore();
 const currentTask = ref({});
-
-const updateCurrentTask = (task) => {
-  currentTask.value = task;
-};
 </script>
 
 <template>
   <div class="wrapper-tasks">
     <div class="main-tasks">
       <Banner />
-      <Tasks @updateCurrentTask="updateCurrentTask" title="Задачи" :tasks />
+      <Tasks :onTaskClick title="Завершенные задачи" :tasks="tasks.filter((task) => task.status)" />
     </div>
-    <Aside :currentTask @closeTask="currentTask = {}"></Aside>
+    <Aside :currentTask></Aside>
   </div>
 </template>
 

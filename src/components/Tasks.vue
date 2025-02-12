@@ -2,8 +2,8 @@
   <div class="tasks-action">
     <div class="tasks">
       <h2 class="tasks-title">{{ title }}</h2>
-      <div @click.self="onTaskClick(task)" class="task" v-for="task in tasks" :class="{ isChecked: task.status }">
-        <input type="checkbox" class="task-checkbox" :checked="task.status" @change="task.status = !task.status" />
+      <div @click.self="$emit('updateCurrentTask', task)" class="task" v-for="task in tasks" :class="{ isChecked: task.status }">
+        <input type="checkbox" class="checkbox" :checked="task.status" @change="task.status = !task.status" />
         {{ task.title }}
       </div>
     </div>
@@ -12,20 +12,17 @@
 </template>
 <script setup>
 import { ref, defineProps } from 'vue';
-import { useTasksStore } from '../pinia/TasksStore';
 
 const props = defineProps({
   tasks: Array,
   title: String,
-  onTaskClick: Function,
   hideInput: Boolean,
 });
 
-const tasksStore = useTasksStore();
 const inputValue = ref();
 
 const save = async () => {
-  props.tasks.push({ title: inputValue.value, status: false });
+  props.tasks.push({ id: props.tasks.length + 1, title: inputValue.value, status: false });
 
   inputValue.value = '';
 };
@@ -76,11 +73,23 @@ const save = async () => {
   text-align: center;
 }
 
-.task-checkbox {
+.checkbox {
   margin-right: 10px;
 }
 
 .isChecked {
   text-decoration: line-through;
+  /* animation: deleteTaskAnimation 0.5s ease-in-out; */
 }
+
+/* @keyframes deleteTaskAnimation {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+} */
 </style>
