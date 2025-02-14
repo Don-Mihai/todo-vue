@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
 export const useTasksStore = defineStore('tasks', {
-  state: () => ({ tasks: [{ id: 1, title: 'test', status: false }] }),
-  getters: {
-    doubleCount: (state) => state.count * 2,
-  },
+  state: () => ({ tasks: [{ id: 1, title: 'test', status: false, priority: 'Низкий' }], currentTask: {} }),
   actions: {
     addTask(title) {
       this.tasks.push({

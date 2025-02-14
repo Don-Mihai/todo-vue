@@ -11,7 +11,7 @@ const saveTask = () => {};
 
 <template>
   <div class="aside" v-if="currentTask.id">
-    <button class="icon close-button" @click="$emit('closeTask')">x</button>
+    <button class="icon" @click="$emit('closeTask')">x</button>
     <input type="text" v-model="currentTask.title" placeholder="Название задачи" class="input-field" />
 
     <textarea v-model="currentTask.description" placeholder="Описание задачи" class="textarea-field"></textarea>
@@ -25,9 +25,6 @@ const saveTask = () => {};
 </template>
 <style lang="scss" scoped>
 .aside {
-  position: fixed;
-  top: 0;
-  right: 0;
   width: 300px;
   height: 100%;
   background-color: white;
@@ -35,6 +32,7 @@ const saveTask = () => {};
   padding: 16px;
   box-sizing: border-box;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: asideSlideIn 0.5s;
 
   .icon {
     background-color: transparent;
@@ -72,6 +70,17 @@ const saveTask = () => {};
       cursor: pointer;
       margin-left: 8px;
     }
+  }
+}
+
+@keyframes asideSlideIn {
+  from {
+    width: 0;
+    transform: translateX(100%);
+  }
+  to {
+    width: 300px;
+    transform: translateX(0);
   }
 }
 </style>

@@ -5,8 +5,7 @@ import Aside from '@/components/Aside.vue';
 import { ref } from 'vue';
 import { useTasksStore } from '@/pinia/TasksStore';
 
-const { tasks } = useTasksStore();
-const currentTask = ref({});
+const { tasks, currentTask } = useTasksStore();
 </script>
 
 <template>

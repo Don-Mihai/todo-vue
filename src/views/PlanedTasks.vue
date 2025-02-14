@@ -5,15 +5,14 @@ import Aside from '@/components/Aside.vue';
 import { ref } from 'vue';
 import { useTasksStore } from '@/pinia/TasksStore';
 
-const { tasks } = useTasksStore();
-const currentTask = ref({});
+const { tasks, currentTask } = useTasksStore();
 </script>
 
 <template>
   <div class="wrapper-tasks">
     <div class="main-tasks">
       <Banner />
-      <Tasks :onTaskClick title="Запланированные задачи" :tasks="tasks.filter((task) => !task.status)"/>
+      <Tasks :onTaskClick title="Запланированные задачи" :tasks="tasks.filter((task) => !task.status)" />
     </div>
     <Aside :currentTask></Aside>
   </div>

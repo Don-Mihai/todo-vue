@@ -17,14 +17,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: all 0.3s ease-in-out;
 
   &__day {
     margin-left: 20px;
-  }
-
-  &:hover {
-    height: 150px;
   }
 }
 </style>

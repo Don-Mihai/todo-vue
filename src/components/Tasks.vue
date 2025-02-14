@@ -5,6 +5,9 @@
       <div @click.self="$emit('updateCurrentTask', task)" class="task" v-for="task in tasks" :class="{ isChecked: task.status }">
         <input type="checkbox" class="checkbox" :checked="task.status" @change="task.status = !task.status" />
         {{ task.title }}
+        <div class="priority" :class="{ isGreen: task.priority === 'Низкий', isYelow: task.priority === 'Средний', isRed: task.priority === 'Высокий' }">
+          {{ task.priority }}
+        </div>
       </div>
     </div>
     <input v-if="!hideInput" class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />
@@ -26,10 +29,13 @@ const save = async () => {
 
   inputValue.value = '';
 };
+
+console.log('props.tasks', props.tasks);
 </script>
 
 <style scoped>
 .task {
+  position: relative;
   margin-bottom: 10px;
   padding: 10px;
   color: #000;
@@ -92,4 +98,22 @@ const save = async () => {
     transform: translateX(100%);
   }
 } */
+
+.priority {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  border-radius: 8px;
+  padding: 0 4px;
+}
+
+.isGreen {
+  background-color: aquamarine;
+}
+.isYelow {
+  background-color: yellow;
+}
+.isRed {
+  background-color: red;
+}
 </style>
