@@ -12,6 +12,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/" class="nav-li">Все задачи</RouterLink>
       <RouterLink to="/uncomplete" class="nav-li">Запланированные</RouterLink>
       <RouterLink to="/complete" class="nav-li">Завершенные</RouterLink>
+      <RouterLink to="/important" class="nav-li">Важные</RouterLink>
     </nav>
   </div>
 </template>

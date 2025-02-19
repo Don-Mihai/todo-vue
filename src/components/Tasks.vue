@@ -8,6 +8,8 @@
         <div class="priority" :class="{ isGreen: task.priority === 'Низкий', isYelow: task.priority === 'Средний', isRed: task.priority === 'Высокий' }">
           {{ task.priority }}
         </div>
+        <i @click="task.important = !task.important" v-if="!task.important" class="pi pi-star star"></i>
+        <i @click="task.important = !task.important" v-else class="pi pi-star-fill star"></i>
       </div>
     </div>
     <input v-if="!hideInput" class="task-input" v-model="inputValue" @keydown.enter="save" type="text" placeholder="Введите задачу" />
@@ -73,6 +75,7 @@ console.log('props.tasks', props.tasks);
   width: 90%;
   height: 40px;
   padding-left: 10px;
+  color: #000;
 }
 .tasks-title {
   color: #000;
@@ -101,8 +104,8 @@ console.log('props.tasks', props.tasks);
 
 .priority {
   position: absolute;
-  right: 10px;
-  top: 4px;
+  right: 35px;
+  top: 10px;
   border-radius: 8px;
   padding: 0 4px;
 }
@@ -115,5 +118,11 @@ console.log('props.tasks', props.tasks);
 }
 .isRed {
   background-color: red;
+}
+
+.star {
+  position: absolute;
+  right: 10px;
+  top: 14px;
 }
 </style>

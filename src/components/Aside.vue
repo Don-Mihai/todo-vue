@@ -1,17 +1,46 @@
 <script setup>
+import { ref } from 'vue';
 import { useTasksStore } from '@/pinia/TasksStore';
+import Button from 'primevue/button';
+
 const props = defineProps({
   currentTask: Object,
 });
 
 const { deleteTask } = useTasksStore();
 
+const idTimer = ref(null);
+
 const saveTask = () => {};
+
+const onTimerClick = () => {
+  props.currentTask.isTimerOn = !props.currentTask.isTimerOn;
+
+  if (!props.currentTask.isTimerOn) {
+    clearInterval(idTimer.value);
+  } else {
+    idTimer.value = setInterval(() => {
+      props.currentTask.time++;
+    }, 1000);
+  }
+};
 </script>
 
 <template>
   <div class="aside" v-if="currentTask.id">
-    <button class="icon" @click="$emit('closeTask')">x</button>
+    <div class="timer">
+      <p class="time">{{ currentTask.time }} сек.</p>
+      <Button
+        label="Таймер"
+        :icon="[currentTask.isTimerOn ? 'pi pi-pause-circle' : 'pi pi-play-circle']"
+        :severity="currentTask.isTimerOn ? 'danger' : 'success'"
+        iconPos="right"
+        size="small"
+        @click="onTimerClick"
+      />
+    </div>
+
+    <button class="close" @click="$emit('closeTask')">x</button>
     <input type="text" v-model="currentTask.title" placeholder="Название задачи" class="input-field" />
 
     <textarea v-model="currentTask.description" placeholder="Описание задачи" class="textarea-field"></textarea>
@@ -25,6 +54,7 @@ const saveTask = () => {};
 </template>
 <style lang="scss" scoped>
 .aside {
+  position: relative;
   width: 300px;
   height: 100%;
   background-color: white;
@@ -34,7 +64,10 @@ const saveTask = () => {};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   animation: asideSlideIn 0.5s;
 
-  .icon {
+  .close {
+    position: absolute;
+    top: -5px;
+    right: 5px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -51,6 +84,7 @@ const saveTask = () => {};
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    color: #000;
 
     &.textarea-field {
       resize: vertical;
@@ -71,6 +105,13 @@ const saveTask = () => {};
       margin-left: 8px;
     }
   }
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0;
 }
 
 @keyframes asideSlideIn {
