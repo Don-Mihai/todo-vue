@@ -1,8 +1,19 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import ToggleSwitch from 'primevue/toggleswitch';
+import { darkStyle, lightStyle } from '@/utils.js';
 
 const isDarkTheme = ref(false);
+
+const applyTheme = (theme) => {
+  Object.entries(theme).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(key, value);
+  });
+};
+
+watch(isDarkTheme, (newValue) => {
+  applyTheme(newValue ? darkStyle : lightStyle);
+});
 </script>
 
 <template>
@@ -11,9 +22,9 @@ const isDarkTheme = ref(false);
       <h2 class="title">Мой день</h2>
       <div class="day">воскресенье, 11 февраля</div>
     </div>
-    <ToggleSwitch v-model="checked" class="theme-switch">
-      <template #handle="{ checked }">
-        <i :class="['!text-xs pi', { 'pi-moon': checked, 'pi-sun': !checked }]" />
+    <ToggleSwitch v-model="isDarkTheme" class="theme-switch">
+      <template #handle="{ isDarkTheme }">
+        <i :class="['!text-xs pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]" />
       </template>
     </ToggleSwitch>
   </div>
@@ -34,6 +45,7 @@ const isDarkTheme = ref(false);
     margin-left: 20px;
   }
 }
+
 .theme-switch {
   margin-right: 20px;
 }

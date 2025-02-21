@@ -57,8 +57,8 @@ const onTimerClick = () => {
   position: relative;
   width: 300px;
   height: 100%;
-  background-color: white;
-  color: #000;
+  background-color: var(--color-background);
+  color: var(--color-text);
   padding: 16px;
   box-sizing: border-box;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -84,7 +84,7 @@ const onTimerClick = () => {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    color: #000;
+    color: var(--color-text);
 
     &.textarea-field {
       resize: vertical;
@@ -96,7 +96,7 @@ const onTimerClick = () => {
     justify-content: space-between;
 
     .button {
-      background-color: dodgerblue;
+      background-color: var(--color-background-button);
       border: none;
       border-radius: 4px;
       padding: 8px 16px;
