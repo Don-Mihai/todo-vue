@@ -21,7 +21,7 @@ import { RouterLink, RouterView } from 'vue-router';
 .wrap-header {
   width: 280px;
   height: 100vh;
-  background-color: #fff;
+  background-color: var(--color-background);
   padding: 2rem 0;
 }
 .nav {
@@ -45,11 +45,11 @@ import { RouterLink, RouterView } from 'vue-router';
   transform: scale(0.9);
 }
 .profile__name {
-  color: #000;
+  color: var(--color-text);
 }
 .nav-li {
   text-decoration: none;
-  color: #000;
+  color: var(--color-text);
   font-size: 18px;
   padding: 10px 0;
   display: block;
@@ -57,10 +57,10 @@ import { RouterLink, RouterView } from 'vue-router';
   transition: all 0.5s;
 }
 .nav-li:hover {
-  background-color: #1d1b1b24;
+  background-color: var(--color-background-secondary);
   transform: scale(1.03);
 }
 .router-link-active {
-  background-color: #1d1b1b24;
+  background-color: var(--color-background-secondary);
 }
 </style>

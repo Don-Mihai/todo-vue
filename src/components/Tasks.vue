@@ -18,7 +18,6 @@
 <script setup>
 import { ref, defineProps, watch } from 'vue';
 
-
 const props = defineProps({
   tasks: Array,
   title: String,
@@ -27,9 +26,13 @@ const props = defineProps({
 
 const inputValue = ref();
 
-watch(props.tasks, (newTasks) => {
-  console.log('Tasks updated:', newTasks);
-}, { deep: true });
+watch(
+  props.tasks,
+  (newTasks) => {
+    console.log('Tasks updated:', newTasks);
+  },
+  { deep: true }
+);
 
 const save = async () => {
   props.tasks.push({ id: props.tasks.length + 1, title: inputValue.value, status: false });
@@ -78,10 +81,10 @@ const save = async () => {
   width: 90%;
   height: 40px;
   padding-left: 10px;
-  color: #000;
+  color: var(--color-text);
 }
 .tasks-title {
-  color: #000;
+  color: var(--color-text);
   text-align: center;
 }
 

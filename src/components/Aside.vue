@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useTasksStore } from '@/pinia/TasksStore';
 import Button from 'primevue/button';
+import Menu from 'primevue/menu';
 
 const props = defineProps({
   currentTask: Object,
 });
 
 const { deleteTask } = useTasksStore();
+const emit = defineEmits(['closeTask']);
 
 const idTimer = ref(null);
 
@@ -23,6 +25,40 @@ const onTimerClick = () => {
       props.currentTask.time++;
     }, 1000);
   }
+};
+const handleClickOutside = (event) => {
+  const asideElement = document.querySelector('.aside');
+  const tasksElement = event.target.closest('.task');
+  const menuList = event.target.closest('.p-menu-list');
+
+  if (asideElement && !asideElement.contains(event.target) && !tasksElement && !menuList) {
+    emit('closeTask');
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
+
+const menu = ref();
+const items = ref([
+  {
+    label: 'Options',
+    items: [
+      {
+        label: 'Экспорт',
+        icon: 'pi pi-upload',
+      },
+    ],
+  },
+]);
+
+const toggle = (event) => {
+  menu.value.toggle(event);
 };
 </script>
 
@@ -49,6 +85,10 @@ const onTimerClick = () => {
     <div class="aside__footer">
       <button @click="saveTask" class="button">Сохранить</button>
       <button @click="deleteTask(currentTask.id)" class="button">Удалить</button>
+      <div class="card flex justify-center">
+        <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
+        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+      </div>
     </div>
   </div>
 </template>

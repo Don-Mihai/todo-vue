@@ -1,7 +1,8 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import ToggleSwitch from 'primevue/toggleswitch';
 import { darkStyle, lightStyle } from '@/utils.js';
+import moment from 'moment';
 
 const isDarkTheme = ref(false);
 
@@ -12,7 +13,18 @@ const applyTheme = (theme) => {
 };
 
 watch(isDarkTheme, (newValue) => {
+  localStorage.setItem('theme', newValue ? 'dark' : 'light');
   applyTheme(newValue ? darkStyle : lightStyle);
+});
+
+onMounted(() => {
+  //  Получаем текущую тему из localStorage
+  const theme = localStorage.getItem('theme');
+  // если приходит light то тема светлая иначе темная
+  isDarkTheme.value = theme === 'light' ? false : true;
+
+  // Применяем тему
+  applyTheme(isDarkTheme.value ? darkStyle : lightStyle);
 });
 </script>
 
@@ -20,7 +32,7 @@ watch(isDarkTheme, (newValue) => {
   <div class="tasks-banner">
     <div class="tasks-banner__day">
       <h2 class="title">Мой день</h2>
-      <div class="day">воскресенье, 11 февраля</div>
+      <div class="day">{{ moment().locale('ru').format('DD MMMM YYYY, dddd') }}</div>
     </div>
     <ToggleSwitch v-model="isDarkTheme" class="theme-switch">
       <template #handle="{ isDarkTheme }">
