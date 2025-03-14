@@ -17,6 +17,7 @@
 </template>
 <script setup>
 import { ref, defineProps, watch } from 'vue';
+import { useTasksStore } from '@/pinia/TasksStore';
 
 const props = defineProps({
   tasks: Array,
@@ -25,6 +26,7 @@ const props = defineProps({
 });
 
 const inputValue = ref();
+const { addTaskBack } = useTasksStore();
 
 watch(
   props.tasks,
@@ -35,7 +37,7 @@ watch(
 );
 
 const save = async () => {
-  props.tasks.push({ id: props.tasks.length + 1, title: inputValue.value, status: false });
+  await addTaskBack(inputValue.value);
 
   inputValue.value = '';
 };

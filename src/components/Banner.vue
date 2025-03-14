@@ -3,8 +3,10 @@ import { ref, watch, onMounted } from 'vue';
 import ToggleSwitch from 'primevue/toggleswitch';
 import { darkStyle, lightStyle } from '@/utils.js';
 import moment from 'moment';
+import axios from 'axios';
 
 const isDarkTheme = ref(false);
+const user = ref({});
 
 const applyTheme = (theme) => {
   Object.entries(theme).forEach(([key, value]) => {
@@ -26,6 +28,12 @@ onMounted(() => {
   // Применяем тему
   applyTheme(isDarkTheme.value ? darkStyle : lightStyle);
 });
+
+const send = async () => {
+  const response = (await axios.post('http://localhost:5005/users/send-email')).data;
+
+  user.value = response;
+};
 </script>
 
 <template>
@@ -34,6 +42,8 @@ onMounted(() => {
       <h2 class="title">Мой день</h2>
       <div class="day">{{ moment().locale('ru').format('DD MMMM YYYY, dddd') }}</div>
     </div>
+    <button @click="send">Отправить сообщение</button>
+    {{ user }}
     <ToggleSwitch v-model="isDarkTheme" class="theme-switch">
       <template #handle="{ isDarkTheme }">
         <i :class="['!text-xs pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]" />

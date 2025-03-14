@@ -8,12 +8,14 @@ const props = defineProps({
   currentTask: Object,
 });
 
-const { deleteTask } = useTasksStore();
+const { deleteTask, editTaskBack } = useTasksStore();
 const emit = defineEmits(['closeTask']);
 
 const idTimer = ref(null);
 
-const saveTask = () => {};
+const saveTask = () => {
+  editTaskBack(props.currentTask);
+};
 
 const onTimerClick = () => {
   props.currentTask.isTimerOn = !props.currentTask.isTimerOn;
