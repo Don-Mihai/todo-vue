@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 export const useTasksStore = defineStore('tasks', {
-  state: () => ({ tasks: [{ id: 1, title: 'test', status: false, priority: 'Низкий', important: false, isTimerOn: false, time: 0 }], currentTask: {} }),
+  state: () => ({ tasks: [], currentTask: {} }),
   actions: {
     addTask(title) {
       this.tasks.push({
@@ -21,14 +21,16 @@ export const useTasksStore = defineStore('tasks', {
       this.tasks[index] = taskRes;
     },
     async getTasks() {
-      const tasks = (await axios.post('http://localhost:5005/tasks/get-all', { title })).data;
-      this.tasks = tasks;
-    },
-    deleteTask(id) {
-      console.log(id);
-      this.tasks = this.tasks.filter((task) => task.id !== id);
+      this.tasks.splice(0, this.tasks.length);
 
-      console.log(this.tasks);
+      const tasks = (await axios.post('http://localhost:5005/tasks/get-all', { title })).data;
+      tasks.forEach((element) => {
+        this.tasks.push(element);
+      });
+    },
+    async deleteTask(id) {
+      const taskRes = (await axios.post('http://localhost:5005/tasks/delete', { id })).data;
+      this.tasks = this.tasks.filter((task) => task.id !== taskRes.id);
     },
   },
 });

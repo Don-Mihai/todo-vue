@@ -2,10 +2,14 @@
 import Banner from '@/components/Banner.vue';
 import Tasks from '@/components/Tasks.vue';
 import Aside from '@/components/Aside.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useTasksStore } from '@/pinia/TasksStore';
 
-const { tasks, currentTask } = useTasksStore();
+const { tasks, currentTask, getTasks } = useTasksStore();
+
+onMounted(() => {
+  getTasks();
+});
 </script>
 
 <template>
